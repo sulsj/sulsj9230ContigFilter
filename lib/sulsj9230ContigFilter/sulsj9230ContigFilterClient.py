@@ -33,6 +33,19 @@ class sulsj9230ContigFilter(object):
             trust_all_ssl_certificates=trust_all_ssl_certificates,
             auth_svc=auth_svc)
 
+    def filter_contigs(self, params, context=None):
+        """
+        Main method
+        :param params: instance of type "ContigFilterParams" (Input parameter
+           types) -> structure: parameter "workspace_name" of String,
+           parameter "assembly_ref" of String, parameter "min_length" of Long
+        :returns: instance of type "ContigFilterResults" (Output result
+           types) -> structure:
+        """
+        return self._client.call_method(
+            'sulsj9230ContigFilter.filter_contigs',
+            [params], self._service_ver, context)
+
     def status(self, context=None):
         return self._client.call_method('sulsj9230ContigFilter.status',
                                         [], self._service_ver, context)

@@ -19,8 +19,8 @@ class sulsj9230ContigFilter:
     # the latter method is running.
     ######################################### noqa
     VERSION = "0.0.1"
-    GIT_URL = "https://github.com/sulsj/sulsj9230ContigFilter.git"
-    GIT_COMMIT_HASH = "0373e44d4a4f12aa24b5d1d18f7bcf5ba0f0d3a1"
+    GIT_URL = ""
+    GIT_COMMIT_HASH = ""
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -32,27 +32,6 @@ class sulsj9230ContigFilter:
         #END_CONSTRUCTOR
         pass
 
-
-    def filter_contigs(self, ctx, params):
-        """
-        Main method
-        :param params: instance of type "ContigFilterParams" (Input parameter
-           types) -> structure: parameter "workspace_name" of String,
-           parameter "assembly_ref" of String, parameter "min_length" of Long
-        :returns: instance of type "ContigFilterResults" (Output result
-           types) -> structure:
-        """
-        # ctx is the context object
-        # return variables are: returnVal
-        #BEGIN filter_contigs
-        #END filter_contigs
-
-        # At some point might do deeper type checking...
-        if not isinstance(returnVal, dict):
-            raise ValueError('Method filter_contigs return value ' +
-                             'returnVal is not type dict as required.')
-        # return the results
-        return [returnVal]
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",

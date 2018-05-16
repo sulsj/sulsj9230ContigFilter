@@ -2,7 +2,7 @@ module-name:
     sulsj9230ContigFilter
 
 module-description:
-    A KBase module
+    A KBase module testing: ContigFilter
 
 service-language:
     python
