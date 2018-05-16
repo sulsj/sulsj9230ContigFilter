@@ -76,14 +76,25 @@ class sulsj9230ContigFilterTest(unittest.TestCase):
         return self.__class__.ctx
 
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
-    def test_your_method(self):
-        # Prepare test objects in workspace if needed using
-        # self.getWsClient().save_objects({'workspace': self.getWsName(),
-        #                                  'objects': []})
-        #
-        # Run your method by
-        # ret = self.getImpl().your_method(self.getContext(), parameters...)
-        #
-        # Check returned data with
-        # self.assertEqual(ret[...], ...) or other unittest methods
-        pass
+    
+    # def test_your_method(self):
+    #     # Prepare test objects in workspace if needed using
+    #     # self.getWsClient().save_objects({'workspace': self.getWsName(),
+    #     #                                  'objects': []})
+    #     #
+    #     # Run your method by
+    #     # ret = self.getImpl().your_method(self.getContext(), parameters...)
+    #     #
+    #     # Check returned data with
+    #     # self.assertEqual(ret[...], ...) or other unittest methods
+    #     pass
+    
+    def test_filter_contigs(self):
+        ref = "79/16/1"
+        result = self.getImpl().filter_contigs(self.getContext(), {
+            'workspace_name': self.getWsName(),
+            'assembly_ref': ref,
+            'min_length': 100
+        })
+        print result
+        # TODO -- assert some things (later)
