@@ -16,6 +16,11 @@ module sulsj9230ContigFilter {
     
     /* Output result types */
     typedef structure {
+        string report_name;
+        string report_ref;
+        string filtered_assembly_ref;
+        int n_total;
+        int n_remaining;        
     } ContigFilterResults;
     
     /* Main method */

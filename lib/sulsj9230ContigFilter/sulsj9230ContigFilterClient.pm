@@ -125,7 +125,12 @@ ContigFilterParams is a reference to a hash where the following keys are defined
 	workspace_name has a value which is a string
 	assembly_ref has a value which is a string
 	min_length has a value which is an int
-ContigFilterResults is a reference to a hash where the following keys are defined
+ContigFilterResults is a reference to a hash where the following keys are defined:
+	report_name has a value which is a string
+	report_ref has a value which is a string
+	filtered_assembly_ref has a value which is a string
+	n_total has a value which is an int
+	n_remaining has a value which is an int
 
 </pre>
 
@@ -139,7 +144,12 @@ ContigFilterParams is a reference to a hash where the following keys are defined
 	workspace_name has a value which is a string
 	assembly_ref has a value which is a string
 	min_length has a value which is an int
-ContigFilterResults is a reference to a hash where the following keys are defined
+ContigFilterResults is a reference to a hash where the following keys are defined:
+	report_name has a value which is a string
+	report_ref has a value which is a string
+	filtered_assembly_ref has a value which is a string
+	n_total has a value which is an int
+	n_remaining has a value which is an int
 
 
 =end text
@@ -342,14 +352,26 @@ Output result types
 =begin html
 
 <pre>
-a reference to a hash where the following keys are defined
+a reference to a hash where the following keys are defined:
+report_name has a value which is a string
+report_ref has a value which is a string
+filtered_assembly_ref has a value which is a string
+n_total has a value which is an int
+n_remaining has a value which is an int
+
 </pre>
 
 =end html
 
 =begin text
 
-a reference to a hash where the following keys are defined
+a reference to a hash where the following keys are defined:
+report_name has a value which is a string
+report_ref has a value which is a string
+filtered_assembly_ref has a value which is a string
+n_total has a value which is an int
+n_remaining has a value which is an int
+
 
 =end text
 

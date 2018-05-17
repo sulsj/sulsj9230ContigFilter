@@ -98,3 +98,51 @@ class sulsj9230ContigFilterTest(unittest.TestCase):
         })
         print result
         # TODO -- assert some things (later)
+        
+    def test_invalid_params(self):
+        impl = self.getImpl()
+        ctx = self.getContext()
+        ws = self.getWsName()        
+        # Missing assembly ref
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, ws, {'min_length': 100})
+        # # Missing min length
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, ws, {'assembly_ref': 'x'})
+        # # Min length is negative
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, ws, {'assembly_ref': 'x', 'min_length': -1})
+        # # Min length is wrong type
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, ws, {'assembly_ref': 'x', 'min_length': 'x'})
+        # # Assembly ref is wrong type
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, ws, {'assembly_ref': 1, 'min_length': 1})
+        # with self.assertRaises(ValueError):
+        #     impl.filter_contigs(ctx, {
+        #         'workspace_name': ws,
+        #         'assembly_ref': "79/16/1",
+        #         'min_length': 1
+        #     })
+    
+    
+    def test_filter_contigs(self):
+        ref = "79/16/1"
+        params = {
+            'workspace_name': self.getWsName(),
+            'assembly_ref': ref,
+            'min_length': 200000
+        }
+        # result = self.getImpl().filter_contigs(self.getContext(), self.getWsName(), params)
+        result = self.getImpl().filter_contigs(self.getContext(), params)
+        pprint(result)
+                
+        self.assertEqual(result[0]['n_total'], 2)
+        self.assertEqual(result[0]['n_remaining'], 1)
+        
+        self.assertTrue(len(result[0]['filtered_assembly_ref']))
+        self.assertTrue(len(result[0]['report_name']))
+        self.assertTrue(len(result[0]['report_ref']))
+    
+    
+

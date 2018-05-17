@@ -40,7 +40,10 @@ class sulsj9230ContigFilter(object):
            types) -> structure: parameter "workspace_name" of String,
            parameter "assembly_ref" of String, parameter "min_length" of Long
         :returns: instance of type "ContigFilterResults" (Output result
-           types) -> structure:
+           types) -> structure: parameter "report_name" of String, parameter
+           "report_ref" of String, parameter "filtered_assembly_ref" of
+           String, parameter "n_total" of Long, parameter "n_remaining" of
+           Long
         """
         return self._client.call_method(
             'sulsj9230ContigFilter.filter_contigs',
