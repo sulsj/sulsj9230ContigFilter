@@ -6,6 +6,7 @@ from Bio import SeqIO
 
 from AssemblyUtil.AssemblyUtilClient import AssemblyUtil
 from KBaseReport.KBaseReportClient import KBaseReport
+# from biokbase.narrative.jobs.jobmanager import JobManager
 #END_HEADER
 
 
@@ -151,7 +152,11 @@ class sulsj9230ContigFilter:
             'n_total': n_total,
             'n_remaining': n_remaining,
             'filtered_assembly_ref': new_ref
-        }        
+        }
+        
+        # Other testing
+        # jm = JobManager()
+        # jm.list_jobs()        
         #END filter_contigs
 
         # At some point might do deeper type checking...
