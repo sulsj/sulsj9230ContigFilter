@@ -188,7 +188,7 @@ class sulsj9230ContigFilter:
 
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
-            raise ValueError('Method filter_contigs return value returnVal is not type dict as required.')
+                    raise ValueError('Method filter_contigs return value returnVal is not type dict as required.')
 
         # return the results
         return [returnVal]
