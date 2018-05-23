@@ -6,6 +6,7 @@ from Bio import SeqIO
 
 from AssemblyUtil.AssemblyUtilClient import AssemblyUtil
 from KBaseReport.KBaseReportClient import KBaseReport
+from BBTools.BBToolsClient import BBTools
 #END_HEADER
 
 
@@ -64,20 +65,22 @@ class sulsj9230ContigFilter:
             raise ValueError('Min length must be a non-negative integer')
         if not isinstance(params['assembly_ref'], basestring) or not len(params['assembly_ref']):
             raise ValueError('Pass in a valid assembly reference string')
-        
+
         print("params['min_length']=%s, params['assembly_ref']=%s" % (params['min_length'], params['assembly_ref']))
         print("params['params['workspace_name']=%s" % (params['workspace_name']))
         print("self.callback_url=%s" % self.callback_url)
         print("self.scratch=%s" % self.scratch)
+        print "config = "
         pprint.pprint(self.config)
-        
+
         ###############
         # Download ref
         ##############
         assembly_util = AssemblyUtil(self.callback_url)
         file = assembly_util.get_assembly_as_fasta({'ref': params['assembly_ref']})
+        print "assembly fasta file = "
         pprint.pprint(file)
-        
+
         ###################################
         # Real business - filter the contig
         ###################################
@@ -94,12 +97,12 @@ class sulsj9230ContigFilter:
             if len(record.seq) >= min_length:
                 good_contigs.append(record)
                 n_remaining += 1
-        
+
         # returnVal = {
         #     'n_total': n_total,
         #     'n_remaining': n_remaining
         # }
-        
+
         # returnVal = {}
 
         ##################
@@ -110,26 +113,26 @@ class sulsj9230ContigFilter:
         SeqIO.write(good_contigs, filtered_path, 'fasta')
         # Upload the filtered data to the workspace
         new_ref = assembly_util.save_assembly_from_fasta({
-            'file': {'path': filtered_path},
+            'file': {
+                'path': filtered_path
+            },
             'workspace_name': workspace_name,
             'assembly_name': file['assembly_name']
         })
-        
+
         # returnVal = {
         #     'n_total': n_total,
         #     'n_remaining': n_remaining,
         #     'filtered_assembly_ref': new_ref
         # }
-        
-        
+
+
         ################
         # Reporting
         ################
         text_message = "".join([
-            'Filtered assembly to ',
-            str(n_remaining),
-            ' contigs out of ',
-            str(n_total)
+            'Filtered assembly to ', str(n_remaining),
+            's contigs out of ', str(n_total)
         ])
         # Data for creating the report, referencing the assembly we uploaded
         report_data = {
@@ -152,14 +155,44 @@ class sulsj9230ContigFilter:
             'n_remaining': n_remaining,
             'filtered_assembly_ref': new_ref
         }
+
+        ###############
+        # BBtools test
+        ###############
+        bbtools = BBTools(self.callback_url)
+
+        # set up input files
+        print "file['path'] = "
+        print file['path']
+        # print new_ref['filtered_assembly_ref']
+        rqc_filter_input = {
+            "reads_file": file['path'] # /kb/module/work/tmp/Shewanella_oneidensis_MR-1_assembly.fa
+        }
+        # or, if you want to use a KBase Workspace UPA for your reads object:
+        # rqc_filter_input = {
+        #     "reads_library_ref": new_ref['filtered_assembly_ref']
+        # }
+
+        # set up parameters (example below, there are many more options, see BBTools.spec)
+        rqc_filter_params = {
+            "qtrim": "rl",
+            "maxns": 3,
+            "minlength": 40
+        }
+
+        # run the local RQCFilter function
+        result = bbtools.run_RQCFilter_local(rqc_filter_input, rqc_filter_params)
+        print "result = "
+        pprint.pprint(result)
         #END filter_contigs
 
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
-            raise ValueError('Method filter_contigs return value ' +
-                             'returnVal is not type dict as required.')
+            raise ValueError('Method filter_contigs return value returnVal is not type dict as required.')
+
         # return the results
         return [returnVal]
+
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",
