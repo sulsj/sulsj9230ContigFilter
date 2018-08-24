@@ -159,7 +159,8 @@ class sulsj9230ContigFilter:
         ###############
         # BBtools test
         ###############
-        bbtools = BBTools(self.callback_url)
+        # bbtools = BBTools(self.callback_url)
+        bbtools = BBTools(self.callback_url, service_ver='beta')
 
         # set up input files
         print "file['path'] = "
@@ -179,6 +180,7 @@ class sulsj9230ContigFilter:
             "maxns": 3,
             "minlength": 40
         }
+        #"maxmem": 5
 
         # run the local RQCFilter function
         result = bbtools.run_RQCFilter_local(rqc_filter_input, rqc_filter_params)
@@ -188,7 +190,7 @@ class sulsj9230ContigFilter:
 
         # At some point might do deeper type checking...
         if not isinstance(returnVal, dict):
-                    raise ValueError('Method filter_contigs return value returnVal is not type dict as required.')
+            raise ValueError('Method filter_contigs return value returnVal is not type dict as required.')
 
         # return the results
         return [returnVal]
@@ -202,3 +204,4 @@ class sulsj9230ContigFilter:
                      'git_commit_hash': self.GIT_COMMIT_HASH}
         #END_STATUS
         return [returnVal]
+
